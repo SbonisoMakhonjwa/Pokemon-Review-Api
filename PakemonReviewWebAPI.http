@@ -1,0 +1,6 @@
+@PakemonReviewWenAPI_HostAddress = http://localhost:5122
+
+GET {{PakemonReviewWenAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
