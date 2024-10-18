@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PakemonReviewWebAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3506ae7900745076d8288d9c28c62012e2b9bf93")]
 [assembly: System.Reflection.AssemblyProductAttribute("PakemonReviewWebAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PakemonReviewWebAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

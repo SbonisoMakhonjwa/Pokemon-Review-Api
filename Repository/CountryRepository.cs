@@ -17,6 +17,18 @@ namespace PakemonReviewWebAPI.Repository
             return _apiDbContext.Countries.Any(c => c.Id == countryId);
         }
 
+        public bool CreateCountry(Country country)
+        {
+            _apiDbContext.Add(country);
+            return Save();
+        }
+
+        public bool DeleteCountry(Country country)
+        {
+            _apiDbContext.Remove(country);
+            return Save();
+        }
+
         public ICollection<Country> GetCountries()
         {
             return _apiDbContext.Countries.OrderBy(c => c.Id).ToList();
@@ -33,6 +45,18 @@ namespace PakemonReviewWebAPI.Repository
            return _apiDbContext.Owners.Where(o => o.Id == ownerId)
                 .Select(c => c.Country).FirstOrDefault()
                 ?? throw new InvalidOperationException();
+        }
+
+        public bool Save()
+        {
+            var saved = _apiDbContext.SaveChanges();
+            return saved > 0 ? true : false;
+        }
+
+        public bool UpdateCountry(Country country)
+        {
+            _apiDbContext.Update(country);
+            return Save();
         }
     }
 }

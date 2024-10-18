@@ -13,9 +13,21 @@ namespace PakemonReviewWebAPI.Repository
             _apiDbContext = apiDbContext;
         }
 
-        public bool CategoriesExists(int CategoryId)
+        public bool CategoryExists(int CategoryId)
         {
             return _apiDbContext.Categories.Any(c => c.Id == CategoryId);
+        }
+
+        public bool CreateCategory(Category category)
+        {
+            _apiDbContext.Add(category);
+            return Save();
+        }
+
+        public bool DeleteCategory(Category category)
+        {
+            _apiDbContext.Remove(category);
+            return Save();
         }
 
         public ICollection<Category> GetCategories()
@@ -34,6 +46,18 @@ namespace PakemonReviewWebAPI.Repository
             return _apiDbContext.PokemonCategories
                 .Where(c => c.CategoryId == CategoryId)
                 .Select(p => p.Pokemon).ToList();
+        }
+
+        public bool Save()
+        {
+            var saved = _apiDbContext.SaveChanges();
+            return saved > 0 ? true : false;
+        }
+
+        public bool UpdateCategory(Category category)
+        {
+            _apiDbContext.Update(category);
+            return Save();
         }
     }
 }

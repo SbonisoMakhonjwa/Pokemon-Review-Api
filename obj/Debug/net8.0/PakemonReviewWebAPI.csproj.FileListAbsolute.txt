@@ -135,3 +135,4 @@ C:\Projects\C# Web API\PakemonReviewWenAPI\obj\Debug\net8.0\PakemonReviewWebAPI.
 C:\Projects\C# Web API\PakemonReviewWenAPI\obj\Debug\net8.0\PakemonReviewWebAPI.genruntimeconfig.cache
 C:\Projects\C# Web API\PakemonReviewWenAPI\obj\Debug\net8.0\ref\PakemonReviewWebAPI.dll
 C:\Projects\C# Web API\PakemonReviewWenAPI\bin\Debug\net8.0\AutoMapper.dll
+C:\Projects\C# Web API\PakemonReviewWenAPI\obj\Debug\net8.0\PakemonReviewWebAPI.sourcelink.json

@@ -55,5 +55,17 @@ namespace PakemonReviewWebAPI.Repository
             var saved = _apiDbContext.SaveChanges();
             return saved > 0 ? true : false;
         }
+
+        public bool DeleteReview(Review review)
+        {
+            _apiDbContext.Remove(review);
+            return Save();
+        }
+
+        public bool DeleteReviews(List<Review> reviews)
+        {
+            _apiDbContext.RemoveRange(reviews);
+            return Save();
+        }
     }
 }

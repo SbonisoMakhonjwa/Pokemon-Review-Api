@@ -60,7 +60,7 @@ namespace PakemonReviewWebAPI.Controllers
         [ProducesResponseType(400)]
         public IActionResult GetReviewsForAPokemon(int pokeId)
         {
-            var reviews = _mapper.Map<List<ReviewDto>>(_reviewRepository
+            var review = _mapper.Map<List<ReviewDto>>(_reviewRepository
                 .GetReviewsOfAPokemon(pokeId));
 
             if (!ModelState.IsValid)
@@ -68,7 +68,7 @@ namespace PakemonReviewWebAPI.Controllers
                 return BadRequest(ModelState.IsValid);
             }
 
-            return Ok(reviews);
+            return Ok(review);
         }
 
         [HttpPost]
@@ -107,7 +107,7 @@ namespace PakemonReviewWebAPI.Controllers
                 return StatusCode(500, ModelState);
             }
 
-            return Ok("Successfully created");
+            return Ok("Created Successfully");
         }
 
         [HttpPut("{reviewId}")]
@@ -146,7 +146,34 @@ namespace PakemonReviewWebAPI.Controllers
                 return StatusCode(500, ModelState);
             }
 
-            return NoContent();
+            return Ok("Updated Successfully");
+        }
+
+        [HttpDelete("{ReviewId}")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        public IActionResult DeleteReview(int reviewId)
+        {
+            if(!_reviewRepository.ReviewExists(reviewId))
+            {
+                return NotFound(ModelState);    
+            }
+
+            var review = _reviewRepository.GetReview(reviewId);
+
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if(!_reviewRepository.DeleteReview(review))
+            {
+                ModelState.AddModelError("", "Something went wrong" +
+                    " while deleting review");
+            }
+
+            return Ok("Deleted Successfully");
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using PakemonReviewWebAPI.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using PakemonReviewWebAPI.Data;
+using PakemonReviewWebAPI.Data.DataTransferObject;
 using PakemonReviewWebAPI.Interfaces;
 using PakemonReviewWebAPI.Models;
 using System.Reflection;
@@ -46,6 +48,57 @@ namespace PakemonReviewWebAPI.Repository
         public bool PokemonExists(int pokemonId)
         {
             return _apiDbContext.Pokemons.Any(p => p.Id == pokemonId);
+        }
+
+        public Pokemon GetPokemonTrimToUpper(PokemonDto pokemonCreate)
+        {
+            return GetPokemons().Where(c => c.Name.Trim().ToUpper()
+            == pokemonCreate.Name.TrimEnd().ToUpper())
+                .FirstOrDefault();
+        }
+
+        public bool CreatePokemon(int ownerId, int categoryId, Pokemon pokemon)
+        {
+            var pokemonOwnerEntity = _apiDbContext.Owners.Where(a => a.Id == ownerId).FirstOrDefault();
+            var category = _apiDbContext.Categories.Where(a => a.Id == categoryId).FirstOrDefault();
+
+            var pokemonOwner = new PokemonOwner()
+            {
+                Owner = pokemonOwnerEntity,
+                Pokemon = pokemon,
+            };
+
+            _apiDbContext.Add(pokemonOwner);
+
+            var pokemonCategory = new PokemonCategory()
+            {
+                Category = category,
+                Pokemon = pokemon,
+            };
+            _apiDbContext.Add(pokemonCategory);
+
+            _apiDbContext.Add(pokemon);
+
+            return Save();
+        }
+
+        public bool UpdatePokemon(int ownerId, int categoryId, 
+            Pokemon pokemon)
+        {
+            _apiDbContext.Update(pokemon);
+            return Save();
+        }
+
+        public bool DeletePokemon(Pokemon pokemon)
+        {
+            _apiDbContext.Remove(pokemon);
+            return Save();
+        }
+
+        public bool Save()
+        {
+            var saved = _apiDbContext.SaveChanges();
+            return saved > 0 ? true : false;
         }
     }
 }

@@ -7,6 +7,10 @@ namespace PakemonReviewWebAPI.Interfaces
         ICollection<Category> GetCategories();
         Category GetCategory(int CategoryId);
         ICollection<Pokemon> GetPokemonByCategoryId(int CategoryId);
-        bool CategoriesExists(int CategoryId);
+        bool CategoryExists(int CategoryId);
+        bool CreateCategory(Category category);
+        bool UpdateCategory(Category category);
+        bool DeleteCategory(Category category);
+        bool Save();
     }
 }
